@@ -1,0 +1,34 @@
+### GET /api/plantas recupera todas las plantas
+GET http://localhost:3000/api/plantas
+
+### GET /api/plantas/:id recupera una planta
+GET http://localhost:3000/api/plantas/1
+
+### GET /api/plantas/:id recupera una planta - NOT FOUND(404)
+GET http://localhost:3000/api/plantas/999
+
+### POST /api/plantas/ crea una planta
+POST http://localhost:3000/api/plantas
+Content-Type: application/json
+
+{
+    "nombre": "Cardiología",
+    "numero_planta": 2,
+    "capacidad": 40,
+    "coste_mensual": 85000,
+    "activa": true,
+    "fecha_apertura": "2010-03-01",
+    "id_hospital": 1
+}
+
+### PUT /api/plantas/:id actualiza una planta
+PUT http://localhost:3000/api/plantas/1
+Content-Type: application/json
+
+{
+    "nombre": "Cardiología Renovada",
+    "capacidad": 45
+}
+
+### DELETE /api/plantas/:id elimina una planta
+DELETE http://localhost:3000/api/plantas/1

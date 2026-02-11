@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  # 1. LA BASE DE DATOS (MySQL)
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: dbname
+      MYSQL_USER: root
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # Si tienes un archivo .sql en una carpeta llamada 'dump', se cargará solo
+      - ./dump:/docker-entrypoint-initdb.d:ro 
+
+  # 2. EL PANEL PARA VER LA BASE DE DATOS (phpMyAdmin)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: test
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  # 3. TU BACKEND (Node.js)
+  www-node-express:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      # Aquí le decimos a tu código cómo conectar con la DB
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=test
+      - DB_NAME=dbname
+    depends_on:
+      - db
+
+volumes:
+  db_data:

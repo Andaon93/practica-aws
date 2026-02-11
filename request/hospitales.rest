@@ -1,0 +1,32 @@
+### GET /api/hospitales recupera todos los hospitales
+GET http://localhost:3000/api/hospitales
+
+### GET /api/hospitales/:id recupera un hospital
+GET http://localhost:3000/api/hospitales/1
+
+### GET /api/hospitales/:id recupera un hospital - NOT FOUND(404)
+GET http://localhost:3000/api/hospitales/999
+
+### POST /api/hospitales/ crea un hospital
+POST http://localhost:3000/api/hospitales
+Content-Type: application/json
+
+{
+    "nombre": "Hospital Central",
+    "direccion": "Av. Salud 123",
+    "presupuesto": 3500000,
+    "publico": true,
+    "fecha_fundacion": "1980-05-12"
+}
+
+### PUT /api/hospitales/:id actualiza un hospital
+PUT http://localhost:3000/api/hospitales/1
+Content-Type: application/json
+
+{
+    "nombre": "Hospital Central Renovado",
+    "presupuesto": 4000000
+}
+
+### DELETE /api/hospitales/:id elimina un hospital
+DELETE http://localhost:3000/api/hospitales/1
